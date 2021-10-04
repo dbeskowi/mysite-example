@@ -1,3 +1,1 @@
-# runtime.txt
-
-python-3.9.7
+python-3.8.12
