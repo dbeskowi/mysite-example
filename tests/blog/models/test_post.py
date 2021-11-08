@@ -3,7 +3,7 @@ Testing Post
 """
 
 from model_mommy import mommy
-import pytest
+#import pytest
 
 from blog.models import Post
 
