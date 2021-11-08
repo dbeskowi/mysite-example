@@ -6,6 +6,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="{% static "blog/base.css" %}">
+  <link rel="stylesheet" href="{% static "blog/global.css" %}">
   <title>My Blog – {% block page_title %}An awesome blog{% endblock %}</title>
   <img src="{% static "blog/FoundationTitle.jpg" %}" alt="Logo">
 </head>
@@ -28,9 +29,30 @@
   </nav>
 
   <main id="main-content">
-   {% block main %}
-   <!-- Content for the main block will be rendered here -->
-   {% endblock %}
+    <div>
+    {% block main %}
+      <p>Welcome to the home page of my blog!</p>
+      <section class="latest-article-preview">
+        {% for post in latest_posts %}
+        <article>
+          <h2>{{ post.title }}</h2>
+          {{ post.content|linebreaks }}
+          <em>{{ post.published|timesince }} ago</em>
+        </article>
+        {% endfor %}
+      </section>
+    {% endblock %}
+  </div>
+      <aside id="sidebar">
+         <section id="author-list">
+           <h3>Authors</h3>
+           <ul>
+              {% for author in authors %}
+                <li>{{ author.get_full_name }}</li>
+              {% endfor %}
+            </ul>
+         </section>
+       </aside>
   </main>
 
   <!-- The footer -->

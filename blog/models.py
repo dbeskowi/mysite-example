@@ -4,6 +4,7 @@
 
 from django.conf import settings # Imports Django's loaded settings
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 
@@ -36,11 +37,19 @@ class PostQuerySet(models.QuerySet):
         Returns all published posts
         """
         return self.filter(status=self.model.PUBLISHED)
+
     def drafts(self):
         """
         Returns all draft posts
         """
         return self.filter(status=self.model.DRAFT)
+
+    def get_authors(self):
+        """
+        returns all authors
+        """
+        User = get_user_model()
+        return User.objects.filter(blog_posts__in=self).distinct()
 
 class Post(models.Model):
     """

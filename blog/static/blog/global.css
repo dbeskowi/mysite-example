@@ -1,0 +1,8 @@
+/* ... */
+#main-content {
+  margin-top: 1rem;
+  display: grid;
+  /* The grid has 2 columns. 1 with auto width, the other is 200px wide */
+  grid-template-columns: auto 200px;
+}
+/* ... */
