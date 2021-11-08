@@ -27,6 +27,21 @@ class Topic(models.Model):
         """
         ordering = ['name']
 
+class PostQuerySet(models.QuerySet):
+    """
+    Extra frequently used queries
+    """
+    def published(self):
+        """
+        Returns all published posts
+        """
+        return self.filter(status=self.model.PUBLISHED)
+    def drafts(self):
+        """
+        Returns all draft posts
+        """
+        return self.filter(status=self.model.DRAFT)
+
 class Post(models.Model):
     """
         Represents a blog post
@@ -66,6 +81,7 @@ class Post(models.Model):
         Topic,
         related_name='blog_posts'
     )
+    objects = PostQuerySet.as_manager()
 
 
     class Meta:
