@@ -21,6 +21,7 @@ from blog import views  # Import the views module
 urlpatterns = [
     # path('', views.index),  # Add our index view to the URL patterns
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', views.HomeView.as_view(), name='home'),
     path('about/', views.AboutView.as_view(), name='about'),
+    path('terms/', views.terms_and_conditions, name='terms-and-conditions'),
 ]
