@@ -4,6 +4,8 @@ html templates here
 
 from django.shortcuts import render
 from . import models
+from django.views import View
+
 
 # Create your views here.
 
@@ -20,3 +22,8 @@ def home(request):
         'latest_posts': latest_posts
     }
     return render(request, 'blog/home.html', context)
+
+
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'blog/about.html')
