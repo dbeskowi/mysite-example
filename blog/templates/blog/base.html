@@ -6,7 +6,6 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="{% static "blog/base.css" %}">
-  <link rel="stylesheet" href="{% static "blog/global.css" %}">
   <title>My Blog – {% block page_title %}An awesome blog{% endblock %}</title>
   <img src="{% static "blog/FoundationTitle.jpg" %}" alt="Logo">
 </head>
@@ -23,8 +22,8 @@
     <ul>
       <li><a href="{% url "home" %}">Home</a></li>
       <li><a href="{% url "about" %}">About</a></li>
-      <li><a href="#">Posts</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="{% url "post-list" %}">Posts</a></li>
+      <li><a href="{% url "contact" %}">Contact</a></li>
     </ul>
   </nav>
 

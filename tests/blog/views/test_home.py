@@ -1,4 +1,5 @@
 # tests/blog/views/test_home.py
+
 from model_mommy import mommy
 import pytest
 
@@ -11,6 +12,7 @@ pytestmark = pytest.mark.django_db
 def test_home(client):
     response = client.get('/')
     assert response.status_code == 200
+
 
 def test_authors_included_in_context_data(client, django_user_model):
     """
@@ -30,7 +32,8 @@ def test_authors_included_in_context_data(client, django_user_model):
         author=cosmo,
         _quantity=2
     )
-    # Make a published author called Elaine
+    # Make a published author called Elainechrome://extensions
+
     elaine = mommy.make(
         django_user_model,
         username='ebenez',

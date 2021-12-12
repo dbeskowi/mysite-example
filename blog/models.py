@@ -2,9 +2,11 @@
     blog.models
 """
 
-from django.conf import settings # Imports Django's loaded settings
+from django.conf import settings  # Imports Django's loaded settings
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
+
 
 # Create your models here.
 
@@ -21,17 +23,18 @@ class Topic(models.Model):
     def __str__(self):
         return str(self.name)
 
-
     class Meta:
         """
         Meta for ordering
         """
         ordering = ['name']
 
+
 class PostQuerySet(models.QuerySet):
     """
     Extra frequently used queries
     """
+
     def published(self):
         """
         Returns all published posts
@@ -50,6 +53,7 @@ class PostQuerySet(models.QuerySet):
         """
         User = get_user_model()
         return User.objects.filter(blog_posts__in=self).distinct()
+
 
 class Post(models.Model):
     """
@@ -92,6 +96,19 @@ class Post(models.Model):
     )
     objects = PostQuerySet.as_manager()
 
+    def get_absolute_url(self):
+        if self.published:
+            return reverse(
+                'post-detail',
+                kwargs={
+                    'year': self.published.year,
+                    'month': self.published.month,
+                    'day': self.published.day,
+                    'slug': self.slug
+                }
+            )
+
+        return reverse('post-detail', kwargs={'pk': self.pk})
 
     class Meta:
         """
@@ -104,3 +121,17 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+
+class Contact(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    message = models.TextField()
+    submitted = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-submitted']
+
+    def __str__(self):
+        return f'{self.submitted.date()}: {self.email}'
